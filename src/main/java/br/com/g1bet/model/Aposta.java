@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class ApostaModel {
+public class Aposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class ApostaModel {
     @NotNull
     private float valorApostado;
 
-    public ApostaModel() {
+    public Aposta() {
 
     }
 

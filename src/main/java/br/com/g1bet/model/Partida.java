@@ -6,11 +6,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "partidas")
-public class PartidaModel {
+public class Partida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

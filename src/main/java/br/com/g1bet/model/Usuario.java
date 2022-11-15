@@ -2,7 +2,7 @@ package br.com.g1bet.model;
 
 import java.time.LocalDate;
 
-public class UsuarioModel {
+public class Usuario {
 
     private Long id;
     private String nome;
@@ -13,7 +13,7 @@ public class UsuarioModel {
     private String chavePix;
     private Double saldoUsuario;
 
-    public UsuarioModel() {
+    public Usuario() {
 
     }
 
