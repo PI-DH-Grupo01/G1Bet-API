@@ -1,4 +1,4 @@
-create table usuarios
+create table usuario
 (
     id                 BIGINT not null PRIMARY KEY AUTO_INCREMENT,
     nome               VARCHAR(100),
