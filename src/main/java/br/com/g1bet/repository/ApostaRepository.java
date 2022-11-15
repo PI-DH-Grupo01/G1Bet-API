@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ApostaRepository extends JpaRepository <Aposta, Long> {
-    public List<Aposta> findAllByApostaContainingIgnoreCase(String tipoDeAposta);
+public interface ApostaRepository extends JpaRepository<Aposta, Long> {
+    public List<Aposta> findAllByTipoContainingIgnoreCase(String tipo);
 }

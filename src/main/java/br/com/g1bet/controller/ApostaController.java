@@ -17,39 +17,38 @@ public class ApostaController {
     private ApostaRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<Aposta>> GetAll() {
+    public ResponseEntity<List<Aposta>> getAll() {
         return ResponseEntity.ok(repository.findAll());
     }
 
     @GetMapping("/{id_partida}")
-    public ResponseEntity<Aposta> GetById(@PathVariable Long id_partida) {
+    public ResponseEntity<Aposta> getById(@PathVariable Long id_partida) {
         return repository.findById(id_partida)
                 .map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/aposta/{tipoDeAposta}")
-    public ResponseEntity<List<Aposta>> GetByAposta(@PathVariable String tipoDeAposta){
-        return ResponseEntity.ok(repository.findAllByApostaContainingIgnoreCase(tipoDeAposta));
+    public ResponseEntity<List<Aposta>> getByAposta(@PathVariable String tipoDeAposta) {
+        return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(tipoDeAposta));
 
     }
 
     @PostMapping
-    public ResponseEntity<Aposta> post(@RequestBody Aposta apostaModel){
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(apostaModel));
+    public ResponseEntity<Aposta> post(@RequestBody Aposta aposta) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(aposta));
     }
 
     @PutMapping
-    public ResponseEntity<Aposta> put(@RequestBody Aposta apostaModel) {
+    public ResponseEntity<Aposta> put(@RequestBody Aposta aposta) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(repository.save(apostaModel));
+                .body(repository.save(aposta));
     }
 
     @DeleteMapping("/{id_partida}")
     public void delete(@PathVariable Long id_partida) {
         repository.deleteById(id_partida);
     }
-
 
 
 }
