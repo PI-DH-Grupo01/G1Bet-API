@@ -1,28 +1,25 @@
 package br.com.g1bet.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Aposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAposta;
+    private Long id;
 
-    @OneToMany(mappedBy = "apostas", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("apostas")
-    private Long idUsuario;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Usuario usuario;
 
-    @OneToMany(mappedBy = "apostas", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("apostas")
-    private Long idPartida;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Partida partida;
 
     @NotNull
     @Size(min = 5, max = 20)
-    private String tipoDeAposta;
+    private String tipo;
 
     @NotNull
     private float valorApostado;
@@ -31,36 +28,36 @@ public class Aposta {
 
     }
 
-    public Long getIdAposta() {
-        return idAposta;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdAposta(Long idAposta) {
-        this.idAposta = idAposta;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Long getIdPartida() {
-        return idPartida;
+    public Partida getPartida() {
+        return partida;
     }
 
-    public void setIdPartida(Long idPartida) {
-        this.idPartida = idPartida;
+    public void setPartida(Partida partida) {
+        this.partida = partida;
     }
 
-    public String getTipoDeAposta() {
-        return tipoDeAposta;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTipoDeAposta(String tipoDeAposta) {
-        this.tipoDeAposta = tipoDeAposta;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public float getValorApostado() {
@@ -70,5 +67,5 @@ public class Aposta {
     public void setValorApostado(float valorApostado) {
         this.valorApostado = valorApostado;
     }
-}
 
+}
