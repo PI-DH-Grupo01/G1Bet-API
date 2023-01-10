@@ -5,8 +5,8 @@ import br.com.g1bet.model.Aposta;
 import br.com.g1bet.model.Partida;
 import br.com.g1bet.model.TipoApostaEnum;
 import br.com.g1bet.model.Usuario;
-import br.com.g1bet.model.dto.ApostaDTO;
-import br.com.g1bet.model.dto.ApostaResponse;
+import br.com.g1bet.dto.request.ApostaRequest;
+import br.com.g1bet.dto.response.ApostaResponse;
 import br.com.g1bet.repository.ApostaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,20 +36,20 @@ public class ApostaService {
         return repository.findAllByTipo(tipoDeAposta);
     }
 
-    public ApostaResponse apostar(ApostaDTO apostaDTO) {
-        Usuario usuario = usuarioService.findById(apostaDTO.getUsuario());
+    public ApostaResponse apostar(ApostaRequest apostaRequest) {
+        Usuario usuario = usuarioService.buscar(apostaRequest.getUsuario());
 
-        if (usuario.getSaldoUsuario() < apostaDTO.getValorApostado()) {
+        if (usuario.getSaldoUsuario() < apostaRequest.getValorApostado()) {
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
 
-        Partida partida = partidaService.findById(apostaDTO.getPartida());
+        Partida partida = partidaService.findById(apostaRequest.getPartida());
 
         Aposta aposta = new Aposta();
-        aposta.setTipo(apostaDTO.getTipo());
+        aposta.setTipo(apostaRequest.getTipo());
         aposta.setUsuario(usuario);
         aposta.setPartida(partida);
-        aposta.setValorApostado(apostaDTO.getValorApostado());
+        aposta.setValorApostado(apostaRequest.getValorApostado());
 
         aposta = repository.save(aposta);
         return ApostaResponse.toApostaResponse(aposta);
