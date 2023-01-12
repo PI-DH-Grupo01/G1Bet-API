@@ -5,7 +5,9 @@ import br.com.g1bet.service.TimeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,8 +37,11 @@ public class TimeController {
 //    }
 
     @PostMapping
-    public ResponseEntity<Time> post(@RequestBody Time time) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(timeService.cadastrar(time));
+    public ResponseEntity<Time> post(@RequestBody Time time, UriComponentsBuilder builder) {
+        Time cadastrarTime = timeService.cadastrar(time);
+        URI uri = builder.path("/times/{id}").buildAndExpand(cadastrarTime.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(cadastrarTime);
     }
 
     @PutMapping
