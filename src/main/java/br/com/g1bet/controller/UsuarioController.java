@@ -7,6 +7,9 @@ import br.com.g1bet.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -17,8 +20,11 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody UsuarioRequest usuarioRequest) {
-        return ResponseEntity.ok(service.cadastrar(usuarioRequest));
+    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody UsuarioRequest usuarioRequest, UriComponentsBuilder builder) {
+        UsuarioResponse usuarioResponse = service.cadastrar(usuarioRequest);
+        URI uri = builder.path("/usuarios/{id}").buildAndExpand(usuarioResponse.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(usuarioResponse);
     }
 
     @DeleteMapping("/{id}")

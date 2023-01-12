@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,8 +29,11 @@ public class PartidaController {
     }
 
     @PostMapping
-    public ResponseEntity<Partida> cadastrar(@RequestBody Partida partida) {
-        return ResponseEntity.ok(service.cadastrar(partida));
+    public ResponseEntity<Partida> cadastrar(@RequestBody Partida partida, UriComponentsBuilder builder) {
+        Partida cadastrarPartida = service.cadastrar(partida);
+        URI uri = builder.path("/partidas/{id}").buildAndExpand(cadastrarPartida.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(cadastrarPartida);
     }
 
     @DeleteMapping("/{id}")

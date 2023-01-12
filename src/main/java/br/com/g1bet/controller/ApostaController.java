@@ -8,7 +8,9 @@ import br.com.g1bet.service.ApostaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,8 +40,11 @@ public class ApostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> apostar(@RequestBody ApostaRequest apostaModel) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.apostar(apostaModel));
+    public ResponseEntity<Object> apostar(@RequestBody ApostaRequest apostaRequest, UriComponentsBuilder builder) {
+        ApostaResponse realizarAposta = service.apostar(apostaRequest);
+        URI uri = builder.path("/apostas/{id}").buildAndExpand(realizarAposta.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(realizarAposta);
     }
 
     @DeleteMapping("/{id}")
