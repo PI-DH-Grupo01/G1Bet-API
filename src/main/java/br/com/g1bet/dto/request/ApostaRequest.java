@@ -1,8 +1,8 @@
-package br.com.g1bet.model.dto;
+package br.com.g1bet.dto.request;
 
 import br.com.g1bet.model.TipoApostaEnum;
 
-public class ApostaDTO {
+public class ApostaRequest {
 
     private Long usuario;
     private Long partida;

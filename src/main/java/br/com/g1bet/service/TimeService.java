@@ -1,7 +1,7 @@
 package br.com.g1bet.service;
 
-import br.com.g1bet.exceptions.CampoExistenteException;
-import br.com.g1bet.exceptions.IdNaoExisteException;
+import br.com.g1bet.mapper.exceptions.CampoExistenteException;
+import br.com.g1bet.mapper.exceptions.IdNaoExisteException;
 import br.com.g1bet.model.Time;
 import br.com.g1bet.repository.TimeRepository;
 import org.hibernate.ObjectNotFoundException;

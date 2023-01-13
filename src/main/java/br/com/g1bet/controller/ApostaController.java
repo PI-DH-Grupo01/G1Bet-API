@@ -2,8 +2,8 @@ package br.com.g1bet.controller;
 
 import br.com.g1bet.model.Aposta;
 import br.com.g1bet.model.TipoApostaEnum;
-import br.com.g1bet.model.dto.ApostaDTO;
-import br.com.g1bet.model.dto.ApostaResponse;
+import br.com.g1bet.dto.request.ApostaRequest;
+import br.com.g1bet.dto.response.ApostaResponse;
 import br.com.g1bet.service.ApostaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class ApostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> apostar(@RequestBody ApostaDTO apostaModel) {
+    public ResponseEntity<Object> apostar(@RequestBody ApostaRequest apostaModel) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.apostar(apostaModel));
     }
 

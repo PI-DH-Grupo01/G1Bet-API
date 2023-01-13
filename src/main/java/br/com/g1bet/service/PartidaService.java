@@ -1,6 +1,6 @@
 package br.com.g1bet.service;
 
-import br.com.g1bet.exceptions.IdNaoExisteException;
+import br.com.g1bet.mapper.exceptions.IdNaoExisteException;
 import br.com.g1bet.model.Partida;
 import br.com.g1bet.repository.PartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package br.com.g1bet.exceptions;
+package br.com.g1bet.mapper.exceptions;
 
 public class IdNaoExisteException extends RuntimeException {
 
