@@ -12,14 +12,17 @@ public class Partida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @ManyToOne()
     @JoinColumn(name = "id_time_visitante", referencedColumnName = "id")
+    @NotNull
     private Time timeVisitante;
 
     @ManyToOne()
     @JoinColumn(name = "id_time_casa", referencedColumnName = "id")
+    @NotNull
     private Time timeCasa;
 
     @NotNull

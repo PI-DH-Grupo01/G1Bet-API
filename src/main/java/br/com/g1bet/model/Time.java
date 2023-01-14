@@ -12,6 +12,7 @@ public class Time {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @NotNull
@@ -20,10 +21,12 @@ public class Time {
 
     @OneToMany(mappedBy = "timeCasa", cascade = CascadeType.ALL)
     @JsonIgnore
+    @NotNull
     private List<Partida> partidasCasa;
 
     @OneToMany(mappedBy = "timeVisitante", cascade = CascadeType.ALL)
     @JsonIgnore
+    @NotNull
     private List<Partida> partidasVisitante;
 
     public Long getId() {

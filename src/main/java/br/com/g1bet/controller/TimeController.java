@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,12 +36,12 @@ public class TimeController {
 //    }
 
     @PostMapping
-    public ResponseEntity<Time> post(@RequestBody Time time) {
+    public ResponseEntity<Time> post(@RequestBody @Valid Time time) {
         return ResponseEntity.status(HttpStatus.CREATED).body(timeService.cadastrar(time));
     }
 
     @PutMapping
-    public ResponseEntity<Time> put(@RequestBody Time time, Long id) {
+    public ResponseEntity<Time> put(@RequestBody @Valid Time time, Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(timeService.atualizar(time, id));
     }
 

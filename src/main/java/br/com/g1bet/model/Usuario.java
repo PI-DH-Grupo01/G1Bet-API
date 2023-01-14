@@ -1,11 +1,16 @@
 package br.com.g1bet.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -14,13 +19,20 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String nome;
+//    @CPF
     private Long cpf;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
+    @Email
     private String email;
+    @NotBlank
     private String senha;
+    @NotBlank
     private String chavePix;
+
     private Double saldoUsuario;
 
     public Usuario() {

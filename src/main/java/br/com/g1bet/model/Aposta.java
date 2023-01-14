@@ -8,6 +8,7 @@ public class Aposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
