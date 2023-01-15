@@ -1,26 +1,26 @@
 package br.com.g1bet.controller;
 
 import br.com.g1bet.model.Usuario;
-import br.com.g1bet.model.dto.UsuarioDTO;
-import br.com.g1bet.model.dto.UsuarioResponse;
+import br.com.g1bet.dto.request.UsuarioRequest;
+import br.com.g1bet.dto.response.UsuarioResponse;
 import br.com.g1bet.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService service;
 
-    public UsuarioController(UsuarioService service) {
-        this.service = service;
-    }
-
     @PostMapping
-    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.ok(service.cadastrar(usuarioDTO));
+    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody @Valid UsuarioRequest usuarioRequest) {
+        return ResponseEntity.ok(service.cadastrar(usuarioRequest));
     }
 
     @DeleteMapping("/{id}")
@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario, @PathVariable Long id) {
+    public ResponseEntity<Usuario> atualizar(@RequestBody @Valid Usuario usuario, @PathVariable Long id) {
         return ResponseEntity.ok().body(service.atualizar(usuario, id));
     }
 

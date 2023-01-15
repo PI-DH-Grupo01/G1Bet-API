@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class PartidaController {
     }
 
     @PostMapping
-    public ResponseEntity<Partida> cadastrar(@RequestBody Partida partida) {
+    public ResponseEntity<Partida> cadastrar(@RequestBody @Valid Partida partida) {
         return ResponseEntity.ok(service.cadastrar(partida));
     }
 
@@ -37,7 +38,7 @@ public class PartidaController {
     }
 
     @PutMapping
-    public ResponseEntity<Partida> put(@RequestBody Partida partidaModel) {
+    public ResponseEntity<Partida> put(@RequestBody @Valid Partida partidaModel) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(repository.save(partidaModel));
     }

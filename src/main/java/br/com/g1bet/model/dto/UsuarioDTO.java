@@ -1,17 +1,26 @@
 package br.com.g1bet.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class UsuarioDTO {
 
+    @NotBlank
     private String nome;
+    @CPF
     private Long cpf;
+    @NotBlank
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
+    @Email
     private String email;
+    @NotBlank
     private String senha;
+    @NotBlank
     private String chavePix;
     private Double saldoUsuario;
 
