@@ -1,5 +1,6 @@
-package br.com.g1bet.model;
+package br.com.g1bet.model.dto;
 
+import br.com.g1bet.model.Time;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-public class Partida {
+public class PartidaDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +31,9 @@ public class Partida {
 
     @Column(name = "data_hora_partida")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull
     private LocalDateTime dataHora;
 
-    public Partida() {
+    public PartidaDTO() {
 
     }
 

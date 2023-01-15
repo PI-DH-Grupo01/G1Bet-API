@@ -2,12 +2,19 @@ package br.com.g1bet.model.dto;
 
 import br.com.g1bet.model.TipoApostaEnum;
 
+import javax.validation.constraints.NotNull;
+
 public class ApostaDTO {
 
+    @NotNull
     private Long usuario;
+    @NotNull
     private Long partida;
+    @NotNull
     private TipoApostaEnum tipo;
+    @NotNull
     private Double ValorApostado;
+    
     private Double possivelRetorno;
 
     public Long getUsuario() {

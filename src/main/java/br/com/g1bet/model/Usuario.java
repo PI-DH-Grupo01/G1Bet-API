@@ -20,9 +20,9 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     private String nome;
-//    @CPF
+
     private Long cpf;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;

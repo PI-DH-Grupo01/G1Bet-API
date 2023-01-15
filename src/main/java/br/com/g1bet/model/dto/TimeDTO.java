@@ -1,5 +1,6 @@
-package br.com.g1bet.model;
+package br.com.g1bet.model.dto;
 
+import br.com.g1bet.model.Partida;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-public class Time {
+public class TimeDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
