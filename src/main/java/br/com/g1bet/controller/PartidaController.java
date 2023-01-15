@@ -4,6 +4,8 @@ import br.com.g1bet.model.Partida;
 import br.com.g1bet.repository.PartidaRepository;
 import br.com.g1bet.service.PartidaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +24,8 @@ public class PartidaController {
     private PartidaRepository repository;
 
     @GetMapping("/historico/{idTime}")
-    public ResponseEntity<List<Partida>> exibirHistoricoPartida(@PathVariable Long idTime) {
-        return ResponseEntity.ok(service.exibirHistoricoPartida(idTime));
+    public ResponseEntity<Page<Partida>> exibirHistoricoPartida(@PathVariable Long idTime, Pageable pageable) {
+        return ResponseEntity.ok(service.exibirHistoricoPartida(idTime, pageable));
     }
 
     @PostMapping

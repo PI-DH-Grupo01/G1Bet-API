@@ -4,6 +4,8 @@ import br.com.g1bet.exceptions.IdNaoExisteException;
 import br.com.g1bet.model.Partida;
 import br.com.g1bet.repository.PartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,8 @@ public class PartidaService {
     @Autowired
     private PartidaRepository repository;
 
-    public List<Partida> exibirHistoricoPartida(Long idTime) {
-        List<Partida> visitantes = repository.findAllByTimeVisitante_Id(idTime);
-        List<Partida> casa = repository.findAllByTimeCasa_Id(idTime);
-        visitantes.addAll(casa);
-        return visitantes;
+    public Page<Partida> exibirHistoricoPartida(Long idTime, Pageable pageable) {
+        return repository.findAllHistoricoPorTime(idTime, pageable);
     }
 
     public Partida findById(Long id) {
