@@ -1,63 +1,47 @@
 package br.com.g1bet.service;
 
 import br.com.g1bet.exceptions.CampoExistenteException;
-import br.com.g1bet.exceptions.CampoNullException;
+import br.com.g1bet.exceptions.IdNaoExisteException;
+import br.com.g1bet.mapper.UsuarioMapper;
 import br.com.g1bet.model.Usuario;
-import br.com.g1bet.model.dto.UsuarioDTO;
-import br.com.g1bet.model.dto.UsuarioResponse;
+import br.com.g1bet.dto.request.UsuarioRequest;
+import br.com.g1bet.dto.response.UsuarioResponse;
 import br.com.g1bet.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
+@RequiredArgsConstructor
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository repository;
     private final PasswordEncoder encoder;
 
-    public UsuarioService(UsuarioRepository repository, PasswordEncoder encoder) {
-        this.repository = repository;
-        this.encoder = encoder;
-    }
-
-    public UsuarioResponse cadastrar(UsuarioDTO usuarioDTO) {
-        if (repository.existsByEmail(usuarioDTO.getEmail())) {
+    public UsuarioResponse cadastrar(UsuarioRequest usuarioRequest) {
+        if (repository.existsByEmail(usuarioRequest.getEmail())) {
             throw new CampoExistenteException("Esse email já existe!");
         }
-        if (usuarioDTO.getSenha() == null
-                || usuarioDTO.getEmail() == null
-                || usuarioDTO.getDataDeNascimento() == null
-                || usuarioDTO.getNome() == null) {
-            throw new CampoNullException("Campo obrigatório não pode ser nulo");
-        }
 
-        Usuario usuario = new Usuario();
-        usuario.setNome(usuarioDTO.getNome());
-        usuario.setCpf(usuarioDTO.getCpf());
-        usuario.setDataDeNascimento(usuarioDTO.getDataDeNascimento());
-        usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setSenha(encoder.encode(usuarioDTO.getSenha()));
-        usuario.setChavePix(usuarioDTO.getChavePix());
-        usuario.setSaldoUsuario(usuarioDTO.getSaldoUsuario());
-
-        usuario = repository.save(usuario);
-        return UsuarioResponse.toUsuarioResponse(usuario);
+        Usuario usuario = UsuarioMapper.INSTANCE.toUsuario(usuarioRequest);
+        return UsuarioResponse.toUsuarioResponse(repository.save(usuario));
     }
 
     public void deletar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new IdNaoExisteException("ID nao encontrado");
+        }
         repository.deleteById(id);
     }
 
-    public Usuario findById(Long id) {
-        Optional<Usuario> usuario = repository.findById(id);
-        return usuario.orElseThrow(() -> new ObjectNotFoundException("Id: " + id, "Usuario não encontrado"));
+    public Usuario buscar(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Id: " + id, "Usuario não encontrado"));
     }
 
     public Usuario atualizar(Usuario usuario, Long id) {
-        Usuario atualizarUsuario = findById(id);
+        Usuario atualizarUsuario = buscar(id);
         atualizarUsuario.setNome(usuario.getNome());
         atualizarUsuario.setCpf(usuario.getCpf());
         atualizarUsuario.setDataDeNascimento(usuario.getDataDeNascimento());

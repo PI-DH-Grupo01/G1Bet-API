@@ -1,10 +1,9 @@
-package br.com.g1bet.model.dto;
+package br.com.g1bet.dto.request;
 
 import br.com.g1bet.model.TipoApostaEnum;
 
 import javax.validation.constraints.NotNull;
-
-public class ApostaDTO {
+public class ApostaRequest {
 
     @NotNull
     private Long usuario;
